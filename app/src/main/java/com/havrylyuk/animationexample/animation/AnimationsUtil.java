@@ -23,10 +23,18 @@ import android.widget.ImageView;
 public class AnimationsUtil {
 
 
-    private static final long SHOW_DELAY_LONG = 500;
+    private static final long SHOW_DURATION_FINGLE = 300;
     private static final long SHOW_DURATION_SHORT = 1200;
+
+    private static final long JUMP_SHOW_DURATION = 400;
     private static final long JUMP_DURATION_TIME = 1200;
+    private static final long JUMP_DURATION_SCALE = 100;
+
+
+    private static final long JUMP_DURATION_RAY = 1500;
+
     private static final long REWARD_TODAY_DURATION = 800;
+
 
     private static int getDisplayHeight(View view) {
         return view.getContext().getResources().getDisplayMetrics().heightPixels;
@@ -53,19 +61,19 @@ public class AnimationsUtil {
 
     public static AnimatorSet jumpOne(final View view) {
         AnimatorSet downSet = new AnimatorSet();
-        downSet.setDuration(100)
+        downSet.setDuration(JUMP_DURATION_SCALE)
                 .playTogether(ObjectAnimator.ofFloat(view, View.SCALE_Y, 1.0f, 0.9f));
         AnimatorSet decompressSet = new AnimatorSet();
-        decompressSet.setDuration(100)
+        decompressSet.setDuration(JUMP_DURATION_SCALE)
                 .playTogether(ObjectAnimator.ofFloat(view, View.SCALE_Y, 0.9f, 1.0f));
         AnimatorSet toNormalSet = new AnimatorSet();
         toNormalSet.setDuration(JUMP_DURATION_TIME)
                 .playTogether(ObjectAnimator.ofFloat(view, View.SCALE_Y, 1.0f, 1.0f));
         AnimatorSet moveUpSet = new AnimatorSet();
-        moveUpSet.setDuration(400)
+        moveUpSet.setDuration(JUMP_SHOW_DURATION)
                 .playTogether(ObjectAnimator.ofFloat(view, "translationY", -8f));
         AnimatorSet moveNormalSet = new AnimatorSet();
-        moveNormalSet.setDuration(400)
+        moveNormalSet.setDuration(JUMP_SHOW_DURATION)
                 .playTogether(ObjectAnimator.ofFloat(view, "translationY", 8f));
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.addListener(baseAnimationListener(view));
@@ -86,7 +94,8 @@ public class AnimationsUtil {
         }
     }
 
-    private static void coinsAnimation(final AnimatedImage view, final int delay , final int radius ) {
+    private static void coinsAnimation(final AnimatedImage view, final int delay ,
+                                       final int radius ) {
         double angleInDegrees = delay * 0.36;
         float x = (float) (radius * Math.cos(angleInDegrees * Math.PI / 180F))
                 + getDisplayWight(view)/2 ;
@@ -138,18 +147,16 @@ public class AnimationsUtil {
     }
 
     public static void animateRayLightLeft(final View imageView ) {
-        if (imageView != null) {
             final AnimatorSet set = new AnimatorSet();
             AnimatorSet moveLeftSet = new AnimatorSet(); //move left
             ObjectAnimator move = ObjectAnimator.ofFloat(imageView, View.TRANSLATION_X, -32.0f, 122);
             move.setRepeatCount(ValueAnimator.INFINITE);
             ObjectAnimator hide = ObjectAnimator.ofFloat(imageView, View.ALPHA, 1.0f, 0.3f);//hide
             hide.setRepeatCount(ValueAnimator.INFINITE);
-            moveLeftSet.setDuration(1500).playTogether(move, hide);
+            moveLeftSet.setDuration(JUMP_DURATION_RAY).playTogether(move, hide);
             set.playSequentially(moveLeftSet);
             set.addListener(baseAnimationListener(imageView));
             set.start();
-        }
     }
 
     public static void rotateAnim(final View view) {
@@ -187,11 +194,12 @@ public class AnimationsUtil {
     }
 
     public static void animateFingle(final ImageView imageView) {
-        final ObjectAnimator scalePulse = ObjectAnimator.ofPropertyValuesHolder(imageView,
+        final ObjectAnimator scalePulse =
+                ObjectAnimator.ofPropertyValuesHolder(imageView,
                 PropertyValuesHolder.ofFloat("scaleX", 0.8f),
                 PropertyValuesHolder.ofFloat("scaleY", 0.8f));
         scalePulse.setRepeatCount(ValueAnimator.INFINITE);
-        scalePulse.setDuration(350);
+        scalePulse.setDuration(SHOW_DURATION_FINGLE);
         scalePulse.setRepeatMode(ObjectAnimator.REVERSE);
         scalePulse.addListener(new AnimatorListenerAdapter() {
             @Override

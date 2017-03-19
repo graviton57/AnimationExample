@@ -33,4 +33,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <FrameLayout
+        android:id="@+id/get_it_layout"
+        android:visibility="gone"
+        android:layout_width="@dimen/get_it_button_width"
+        android:layout_height="@dimen/get_it_button_height"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:background="@drawable/button_orange"
+        android:foregroundGravity="center_vertical">
+
+        <TextView
+            android:text="@string/get_it"
+            android:gravity="center"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/dark_brown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/blink_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/image_blink_yellow"
+            android:visibility="gone"
+            android:contentDescription="@string/animate_image" />
+
+    </FrameLayout>
+
 </RelativeLayout>

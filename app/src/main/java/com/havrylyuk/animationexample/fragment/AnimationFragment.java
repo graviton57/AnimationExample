@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.havrylyuk.animationexample.animation.AnimatedImage;
 import com.havrylyuk.animationexample.model.AnimationType;
@@ -24,6 +27,8 @@ public class AnimationFragment extends Fragment {
     private static final String ARG_ITEM_ID = "ARG_ITEM_ID";
     private AnimationType animType;
     private  AnimatedImage animateView;
+    private FrameLayout buttonLayout;
+    private ImageView rayLayout;
 
     public static AnimationFragment getInstance(int itemId) {
         Bundle args = new Bundle();
@@ -47,6 +52,16 @@ public class AnimationFragment extends Fragment {
 
     private void initUI (View rootView) {
         animateView = ( AnimatedImage) rootView.findViewById(R.id.animate_image);
+        buttonLayout = (FrameLayout) rootView.findViewById(R.id.get_it_layout);
+        rayLayout = (ImageView) rootView.findViewById(R.id.blink_image);
+        if (buttonLayout != null) {
+            buttonLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), "Thank you for your purchase", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
         Button startButton = (Button) rootView.findViewById(R.id.start_button);
         if (startButton != null) {
             startButton.setOnClickListener(new View.OnClickListener() {
@@ -63,20 +78,23 @@ public class AnimationFragment extends Fragment {
     private void prepareViews() {
         switch (animType) {
             case MOVE_COINS:
-                animateView.setImageResource(R.drawable.gold_coin_single);
+                animateView.setImageResource(R.drawable.icon_coin);
                 break;
             case FIREWORK:
                 animateView.setImageResource(R.drawable.image_fireworks);
                 animateView.setVisibility(View.GONE);
                 break;
             case ROTATE:
-                animateView.setImageResource(R.drawable.sync);
+                animateView.setImageResource(R.drawable.icon_sync);
                 break;
             case JUMPING:
-                animateView.setImageResource(R.drawable.heart);
+                animateView.setImageResource(R.drawable.icon_heart);
                 break;
             case PULSE:
                 animateView.setImageResource(R.drawable.icon_fingle);
+                break;
+            case PURCHASE:
+                buttonLayout.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -97,6 +115,10 @@ public class AnimationFragment extends Fragment {
                 break;
             case PULSE:
                 AnimationsUtil.animateFingle(animateView);
+                break;
+            case PURCHASE:
+                if (rayLayout!=null) rayLayout.setVisibility(View.VISIBLE);
+                AnimationsUtil.animateRayLightLeft(rayLayout);
                 break;
         }
     }

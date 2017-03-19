@@ -10,5 +10,6 @@ public enum AnimationType {
     ROTATE,
     JUMPING,
     FIREWORK,
-    PULSE
+    PULSE,
+    PURCHASE
 }

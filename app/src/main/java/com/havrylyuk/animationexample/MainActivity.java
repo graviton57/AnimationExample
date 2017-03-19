@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private void populateData() {
         ArrayList<AnimationItem> data = new ArrayList<>();
         data.add(new AnimationItem(AnimationType.MOVE_COINS,"Coins"));
+        data.add(new AnimationItem(AnimationType.PURCHASE,"Purchase"));
         data.add(new AnimationItem(AnimationType.ROTATE,"Rotate"));
         data.add(new AnimationItem(AnimationType.FIREWORK,"Fireworks"));
         data.add(new AnimationItem(AnimationType.JUMPING,"Jumping"));
