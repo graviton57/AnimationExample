@@ -7,7 +7,7 @@ A simple Android application that showcases animations.
  
 
 ### Main
-![alt text](media/main.png "Main Activity")
+![alt text](media/main.gif "Main Activity")
 
 
 Developed By
