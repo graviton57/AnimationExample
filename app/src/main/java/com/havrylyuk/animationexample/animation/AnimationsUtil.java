@@ -52,7 +52,6 @@ public class AnimationsUtil {
     }
 
     public static AnimatorSet jumpOne(final View view) {
-        //view.setPivotY(100.0f);
         AnimatorSet downSet = new AnimatorSet();
         downSet.setDuration(100)
                 .playTogether(ObjectAnimator.ofFloat(view, View.SCALE_Y, 1.0f, 0.9f));
@@ -82,7 +81,7 @@ public class AnimationsUtil {
             animatedImages[i] = animatedImage.getClone();
             activity.addContentView(animatedImages[i], animatedImages[i].getLayoutParams());
         }
-        for (int i=0; i<animatedImages.length; i++ ) {//animate
+        for (int i=0; i<animatedImages.length; i++ ) {
             AnimationsUtil.coinsAnimation(animatedImages[i], i * 100, 60);
         }
     }
@@ -169,7 +168,6 @@ public class AnimationsUtil {
     public static void animFireWork(final View imageView) {
         final ScaleAnimation scaleAnim = new ScaleAnimation(0.0f, 2.0f, 0.0f, 2.0f,
                 Animation.RELATIVE_TO_PARENT, 0.5f, Animation.RELATIVE_TO_PARENT, 0.5f);
-        scaleAnim.setStartOffset(SHOW_DELAY_LONG);
         scaleAnim.setRepeatCount(2);
         scaleAnim.setDuration(SHOW_DURATION_SHORT);
         scaleAnim.setAnimationListener(new Animation.AnimationListener() {
