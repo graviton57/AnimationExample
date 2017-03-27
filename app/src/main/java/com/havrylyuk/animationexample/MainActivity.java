@@ -1,6 +1,8 @@
 package com.havrylyuk.animationexample;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -8,10 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.havrylyuk.animationexample.adapter.AnimationsAdapter;
-import com.havrylyuk.animationexample.model.AnimationType;
-import com.havrylyuk.animationexample.model.AnimationItem;
+import com.havrylyuk.animationexample.fragment.AnimationFragment.AnimationType;
 
 import java.util.ArrayList;
 
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        animationsAdapter = new AnimationsAdapter(fragmentManager, new ArrayList<AnimationItem>());
+        animationsAdapter = new AnimationsAdapter(fragmentManager, new ArrayList<AnimationType>());
         viewPager.setAdapter(animationsAdapter);
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -50,13 +52,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populateData() {
-        ArrayList<AnimationItem> data = new ArrayList<>();
-        data.add(new AnimationItem(AnimationType.MOVE_COINS,"Coins"));
-        data.add(new AnimationItem(AnimationType.PURCHASE,"Purchase"));
-        data.add(new AnimationItem(AnimationType.ROTATE,"Rotate"));
-        data.add(new AnimationItem(AnimationType.FIREWORK,"Fireworks"));
-        data.add(new AnimationItem(AnimationType.JUMPING,"Jumping"));
-        data.add(new AnimationItem(AnimationType.PULSE,"Pulse"));
+        ArrayList<AnimationType> data = new ArrayList<>();
+        data.add(AnimationType.MOVE_COINS);
+        data.add(AnimationType.PURCHASE);
+        data.add(AnimationType.ROTATE);
+        data.add(AnimationType.FIREWORK);
+        data.add(AnimationType.JUMPING);
+        data.add(AnimationType.PULSE);
         if (animationsAdapter != null) {
             animationsAdapter.addItems(data);
         }
@@ -76,5 +78,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+     * Enables immersive mode to automatically hide system bars.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasWindowFocus()){
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
     }
 }

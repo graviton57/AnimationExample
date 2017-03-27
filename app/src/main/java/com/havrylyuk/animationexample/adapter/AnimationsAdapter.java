@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.havrylyuk.animationexample.fragment.AnimationFragment;
-import com.havrylyuk.animationexample.model.AnimationItem;
+import com.havrylyuk.animationexample.fragment.AnimationFragment.AnimationType;
 
 import java.util.List;
 
@@ -18,19 +18,19 @@ import java.util.List;
 
 public class AnimationsAdapter extends FragmentStatePagerAdapter {
 
-    private List<AnimationItem> itemList;
+    private List<AnimationType> itemList;
 
-    public AnimationsAdapter(FragmentManager fm, List<AnimationItem> animations) {
+    public AnimationsAdapter(FragmentManager fm, List<AnimationType> animations) {
         super(fm);
         this.itemList = animations;
     }
 
-    public void addItem(AnimationItem item) {
+    public void addItem(AnimationType item) {
         itemList.add(item);
         notifyDataSetChanged();
     }
 
-    public void addItems(List<AnimationItem> data) {
+    public void addItems(List<AnimationType> data) {
         itemList.addAll(data);
         notifyDataSetChanged();
     }
@@ -42,7 +42,7 @@ public class AnimationsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return AnimationFragment.getInstance(itemList.get(position).getAnimType().ordinal());
+        return AnimationFragment.getInstance(itemList.get(position).ordinal());
     }
 
     @Override

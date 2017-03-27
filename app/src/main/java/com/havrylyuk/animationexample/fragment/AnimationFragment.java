@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.havrylyuk.animationexample.animation.AnimatedImage;
-import com.havrylyuk.animationexample.model.AnimationType;
 import com.havrylyuk.animationexample.animation.AnimationsUtil;
 import com.havrylyuk.animationexample.R;
 
@@ -26,7 +25,7 @@ public class AnimationFragment extends Fragment {
 
     private static final String ARG_ITEM_ID = "ARG_ITEM_ID";
     private AnimationType animType;
-    private  AnimatedImage animateView;
+    private AnimatedImage animateView;
     private FrameLayout buttonLayout;
     private ImageView rayLayout;
 
@@ -46,12 +45,12 @@ public class AnimationFragment extends Fragment {
             animType = AnimationType.values()[getArguments().getInt(ARG_ITEM_ID)];
         }
         initUI(rootView);
-        prepareViews();
+        prepareAnimations();
         return rootView;
     }
 
-    private void initUI (View rootView) {
-        animateView = ( AnimatedImage) rootView.findViewById(R.id.animate_image);
+    private void initUI(View rootView) {
+        animateView = (AnimatedImage) rootView.findViewById(R.id.animate_image);
         buttonLayout = (FrameLayout) rootView.findViewById(R.id.get_it_layout);
         rayLayout = (ImageView) rootView.findViewById(R.id.blink_image);
         if (buttonLayout != null) {
@@ -75,7 +74,7 @@ public class AnimationFragment extends Fragment {
         }
     }
 
-    private void prepareViews() {
+    private void prepareAnimations() {
         switch (animType) {
             case MOVE_COINS:
                 animateView.setImageResource(R.drawable.icon_coin);
@@ -108,7 +107,7 @@ public class AnimationFragment extends Fragment {
                 AnimationsUtil.rotateAnim(animateView);
                 break;
             case JUMPING:
-                 AnimationsUtil.jumpOne(animateView);
+                AnimationsUtil.jumpOne(animateView);
                 break;
             case FIREWORK:
                 AnimationsUtil.animFireWork(animateView);
@@ -117,10 +116,30 @@ public class AnimationFragment extends Fragment {
                 AnimationsUtil.animateFingle(animateView);
                 break;
             case PURCHASE:
-                if (rayLayout!=null) rayLayout.setVisibility(View.VISIBLE);
+                if (rayLayout != null) rayLayout.setVisibility(View.VISIBLE);
                 AnimationsUtil.animateRayLightLeft(rayLayout);
                 break;
         }
     }
 
+    public enum AnimationType {
+
+        MOVE_COINS("Coins"),
+        ROTATE("Rotate"),
+        JUMPING("Jumping"),
+        FIREWORK("Fireworks"),
+        PULSE("Pulse"),
+        PURCHASE("Purchase");
+
+        private String name;
+
+        AnimationType(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+    }
 }
